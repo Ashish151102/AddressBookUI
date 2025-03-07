@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +25,22 @@ export class ContactService {
   }
 
   // Update an existing contact
-  updateContact(id: number, contact: any): Observable<any> {
+  updateContact(id: String, contact: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/update/${id}`, contact);
   }
 
   // Delete a contact
-  deleteContact(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/delete/${id}`);
+  deleteContact(id: String): Observable<any> {
+    return this.http.delete(`http://localhost:8080/addressbook/delete/${id}`)
+    .pipe(
+      catchError(error => {
+        console.error('Delete failed:', error);
+        return throwError(() => new Error('Failed to delete contact'));
+      })
+    );
+  }
+
+  getContactById(id: String): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 }

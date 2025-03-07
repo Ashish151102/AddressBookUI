@@ -4,7 +4,7 @@
     <button class="close-btn">✖</button>
   </div>
 
-  <form (ngSubmit)="onSubmit()"> <!-- ✅ Add (ngSubmit) -->
+  <form (ngSubmit)="onSubmit()"> 
     <div class="form-group">
       <label>Full Name</label>
       <input type="text" [(ngModel)]="contact.name" name="name" placeholder="Enter full name" required />
@@ -15,7 +15,7 @@
       <input type="text" [(ngModel)]="contact.phone" name="phone" placeholder="Enter phone number" required />
     </div>
 
-    <!-- ✅ Added Email Field -->
+    
     <div class="form-group">
       <label>Email</label>
       <input type="email" [(ngModel)]="contact.email" name="email" placeholder="Enter email" required />
@@ -47,16 +47,5 @@
       <button type="submit" class="btn-primary">Add</button>
       <button type="reset" class="btn-secondary">Reset</button>
     </div>
-
-    <div *ngIf="showForm">
-      <form>
-        <input type="text" [(ngModel)]="contact.name" placeholder="Enter name" />
-      </form>
-    </div>
-    
-    <ul>
-      <li *ngFor="let contact of contacts">{{ contact.name }}</li> 
-    </ul>
-    
   </form>
 </div>

@@ -22,7 +22,18 @@
         <td>{{ contact.city }}</td>
         <td>{{ contact.state }}</td>
         <td>{{ contact.zipcode }}</td>
+        <td>
+          <button [routerLink]="['/edit-contact', contact.id]">✏️</button>
+          <button (click)="deleteContact(contact.id)">🗑️</button>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <app-edit-contact
+  *ngIf="editingContact"
+  [contact]="editingContact"
+  (save)="saveEditedContact(editingContact)"
+  (cancel)="cancelEdit()">
+</app-edit-contact>
 </div>
